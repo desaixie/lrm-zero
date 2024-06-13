@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Training Large Reconstruction Models with Synthetic Data">
+        <meta name="keywords" content="sparse reconstruction">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>LRM-Zero: Training Large Reconstruction Models with Synthetic Data </title>
+
+
+        <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+        <link rel="stylesheet" href="./static/css/bulma.min.css">
+        <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+        <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+        <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+        <link rel="stylesheet" href="./static/css/index.css">
+        <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script defer src="./static/js/fontawesome.all.min.js"></script>
+        <script src="./static/js/bulma-carousel.min.js"></script>
+        <script src="./static/js/bulma-slider.min.js"></script>
+        <script src="./static/js/index.js"></script>
+        <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+        <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
+        "three/controls/OrbitControls": "https://unpkg.com/three@0.156.1/examples/jsm/controls/OrbitControls.js",
+        "three/libs/stats": "https://unpkg.com/three@0.156.1/examples/jsm/libs/stats.module.js"
+      }
+    }
+        </script>
+        <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+        <style>
+    model-viewer {
+      width: 300px;
+      height: 300px;
+    }
+        </style>
+    </head>
+    <body>
+
+        <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              <span class="dnerf">LRM-Zero: Training Large Reconstruction Models with Synthetic Data</span>
+            </h1>
+
+            <div class="is-size-5 publication-authors">
+
+              <span class="author-block">
+                Anonymous authors
+              </span>
+
+     
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>LRM-Zero Results on Amazon Berkeley Objects</center>
+      </h2>
+
+
+      <div class="hero-body">
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000021_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000021_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000044_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000044_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000052_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000052_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000068_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000068_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000077_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000077_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000171_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000171_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000186_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000186_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000211_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000211_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000259_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000259_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000273_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000273_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000313_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000313_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000380_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000380_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000439_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000439_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000454_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000454_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000458_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000458_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000496_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000496_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000519_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000519_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000542_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000542_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000568_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000568_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000876_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000876_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000602_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000602_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000630_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000630_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000656_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000656_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000662_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000662_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000698_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000698_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000706_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000706_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000722_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000722_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000744_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000744_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000755_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000755_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000962_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000962_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+        </div> 
+    </div>
+
+    </div>
+
+  </section>
+
+
+   
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="columns is-centered">
+                        <div class="column is-8">
+                            <div class="content">
+                                <p>
+                                    We borrow the source code of this website from
+                                    <a href="https://github.com/nerfies/nerfies.github.io">HERE</a>
+                                    .
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </body>
+    </html>

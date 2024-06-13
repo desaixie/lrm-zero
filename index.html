@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Training Large Reconstruction Models with Synthetic Data">
+  <meta name="keywords" content="sparse reconstruction">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LRM-Zero: Training Large Reconstruction Models with Synthetic Data </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+  <style>
+    model-viewer {
+      width: 300px;
+      height: 300px;
+    }
+  </style>  
+
+
+  <script>
+
+    $(function () {
+      var includes = $('[data-include]')
+      $.each(includes, function () {
+        var file = $(this).data('include') + '.html'
+        $(this).load(file)
+        console.log(file);
+      })
+    })
+
+  </script>
+
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
+        "three/controls/OrbitControls": "https://unpkg.com/three@0.156.1/examples/jsm/controls/OrbitControls.js",
+        "three/libs/stats": "https://unpkg.com/three@0.156.1/examples/jsm/libs/stats.module.js"
+      }
+    }
+  </script>
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
+  <style>
+    model-viewer {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              <span class="dnerf">LRM-Zero: Training Large Reconstruction Models with Synthesized Data</span>
+            </h1>
+
+            <div class="is-size-5 publication-authors">
+
+              <span class="author-block">
+                <a href="https://desaixie.github.io/">Desai Xie</a><sup>1,2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://sai-bi.github.io/">Sai Bi</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://zhixinshu.github.io/">Zhixin Shu</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://kai-46.github.io/website/">Kai Zhang</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://zexiangxu.github.io/">Zexiang Xu</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://zhouyisjtu.github.io/">Yi Zhou</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://storage.googleapis.com/pirk.io/index.html">Sören Pirk</a><sup>3</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www3.cs.stonybrook.edu/~ari/">Arie Kaufman</a><sup>2</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.sunxin.name/">Xin Sun</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.cs.unc.edu/~airsplay/">Hao Tan</a><sup>1</sup>
+              </span>
+
+              <br>
+              <span class="author-block">
+                <sup>1</sup><a href="https://research.adobe.com/">Adobe Research</a> &nbsp;&nbsp;
+                <sup>2</sup><a href="https://www.stonybrook.edu/">Stony Brook University</a> &nbsp;&nbsp;
+                <sup>3</sup><a href="https://www.uni-kiel.de/en/">Kiel University</a> &nbsp;&nbsp;
+              </span>
+
+              <br>
+              <br>
+
+              <img src="./static/images/lrm_zero_teaser_v5.png" alt="teaser">
+              <center><p> Sample data from our Zeroverse and Objaverse dataset.</p></center>
+
+              <p style="font-size: small; margin-top: 10px;">
+                (This webpage contains a lot of videos and interactive viewers. We suggest using Chrome or Edge for the best experience)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              We present LRM-Zero, a Large Reconstruction Model (LRM) trained entirely on synthesized 3D data, achieving high-quality sparse-view 3D reconstruction. The core of LRM-Zero is our procedural 3D dataset, Zeroverse, which is automatically synthesized from simple primitive shapes with random texturing and augmentations (e.g., height fields, boolean differences, and wireframes). Unlike previous 3D datasets (e.g., Objaverse) which are often captured or crafted by humans to approximate real 3D data, Zeroverse completely ignores realistic global semantics but is rich in complex geometric and texture details that are locally similar to or even more intricate than real objects. We demonstrate that our LRM-Zero, trained with our fully synthesized Zeroverse, can achieve high visual quality in the reconstruction of real-world objects, competitive with models trained on Objaverse. We also analyze several critical design choices of Zeroverse that contribute to LRM-Zero's capability and training stability. Our work demonstrates that 3D reconstruction, one of the core tasks in 3D vision, can potentially be addressed without the semantics of real-world objects. We will release Zeroverse's procedural synthesis code to support future research.
+
+
+              <br><br>
+            </p>
+          </div>
+          </object>
+        </div>
+      </div>
+      <!-- <img src="./static/images/zeroverse_test_01.png" alt="pipeline">
+      <center><p> Sample data from our Zeroverse dataset.</p></center> -->
+    </div>
+  </section>
+
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>Zeroverse Dataset</center>
+      </h2>
+      <h4 class="subtitle is-4">
+        <!-- <center><a href="./page_gso.html">(Click to see more results)</a></center> -->
+        <center>More examples: <a href="./page_zeroverse_1.html">page 1</a>, <a href="./page_zeroverse_2.html">page 2</a></center>
+      </h4>
+      <div class="hero-body">
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <model-viewer src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/0.glb"  shadow-intensity="1" orientation="180deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+            </model-viewer>
+            
+            <div style="text-align: center;">
+            <a href="mesh_viewer.html?model=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/0.glb"> View in new window
+            </a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <model-viewer src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/5.glb"  shadow-intensity="1" orientation="180deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+            </model-viewer>
+            
+            <div style="text-align: center;">
+            <a
+              href="mesh_viewer.html?model=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/5.glb"> View in new window 
+             </a> 
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <model-viewer src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/3.glb"  shadow-intensity="1" orientation="180deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+            </model-viewer>
+            
+            <div style="text-align: center;">
+            <a href="mesh_viewer.html?model=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/3.glb">
+              View in full window 
+            </a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <model-viewer src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/9.glb"  shadow-intensity="1" orientation="180deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+            </model-viewer>
+            
+            <div style="text-align: center;">
+            <a href="mesh_viewer.html?model=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/9.glb">
+              View in new window
+            </a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <model-viewer src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/10.glb"  shadow-intensity="1" orientation="180deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+            </model-viewer>
+            
+            <div style="text-align: center;">
+            <a href="mesh_viewer.html?model=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/10.glb">
+              View in new window
+            </a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <model-viewer src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/11.glb"  shadow-intensity="1" orientation="180deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+            </model-viewer>
+            
+            <div style="text-align: center;">
+            <a href="mesh_viewer.html?model=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/11.glb">
+              View in new window
+            </a>
+            </div>
+          </div>
+
+         <div class="column pb-0 mb-0 is-one-third">
+            <model-viewer src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/12.glb"  shadow-intensity="1" orientation="180deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+            </model-viewer>
+            
+            <div style="text-align: center;">
+            <a href="mesh_viewer.html?model=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/12.glb">
+              View in new window
+            </a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <model-viewer src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/13.glb"  shadow-intensity="1" orientation="180deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+            </model-viewer>
+            
+            <div style="text-align: center;">
+            <a href="mesh_viewer.html?model=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/13.glb">
+              View in new window
+            </a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <model-viewer src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/14.glb"  shadow-intensity="1" orientation="180deg 270deg 180deg" style="background: linear-gradient(#ffffff, #ada996); overflow-x: hidden;" camera-controls="" touch-action="pan-y" ar-status="not-presenting">
+            </model-viewer>
+            
+            <div style="text-align: center;">
+            <a href="mesh_viewer.html?model=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/14.glb">
+              View in new window
+            </a>
+            </div>
+          </div>
+        
+        </div>
+
+      </div>
+
+    </div>
+  </section>  
+
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>LRM-Zero Results on Google Scanned Objects</center>
+      </h2>
+      <h4 class="subtitle is-4">
+        <center><a href="./page_gso.html">(Click to see more results)</a></center>
+      </h4>
+      <div class="hero-body">
+
+       <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000586_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000586_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000106_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000106_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000778_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000778_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+      </div>
+
+        </div>
+      </div>
+  </section>
+
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>LRM-Zero Results on Amazon Berkeley Objects</center>
+      </h2>
+      <h4 class="subtitle is-4">
+        <center><a href="./page_abo.html">(Click to see more results)</a></center>
+      </h4>
+      <div class="hero-body">
+
+        <!-- video and viewer for ABO 313, 316, 590 -->
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000698_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000698_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div> 
+
+                    <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000656_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000656_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+                    <div class="column pb-0 mb-0 is-one-third">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000755_turntable_with_input.mp4"
+                type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+            <a
+              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000755_gaussians.ply">Open
+              interactive viewer</a>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+  </section>
+
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              We borrow the source code of this website from <a
+                href="https://github.com/nerfies/nerfies.github.io">HERE</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
