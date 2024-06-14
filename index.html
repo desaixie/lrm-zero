@@ -123,8 +123,45 @@
               <br>
               <br>
 
+              <div class="is-size-4 publication-authors">
+                <p><br></p>
+                <span class="author-block">
+                  Training a Large Reconstruction Model (LRM) entirely on synthesized 3D data, achieving high-quality sparse-view 3D reconstruction!
+                </span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- PDF Link. -->
+                  <span class="link-block">
+                <a href="https://arxiv.org/abs/2406.09371"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                  <!--                  <span class="icon">-->
+                  <!--                      <i class="fas fa-file-pdf"></i>-->
+                  <!--                  </span>-->
+                  <span>arxiv</span>
+                </a>
+              </span>
+                  <span class="link-block">
+                  <a href="https://github.com/desaixie/carve3d" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <svg class="svg-inline--fa fa-github fa-w-16" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" data-fa-i2svg=""><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg><!-- <i class="fab fa-github"></i> Font Awesome fontawesome.com -->
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                </div>
+
+              </div>
+
+              <br>
+              <br>
+
               <img src="./static/images/lrm_zero_teaser_v5.png" alt="teaser">
-              <center><p> Sample data from our Zeroverse and Objaverse dataset.</p></center>
+              <center><p> Sample data from our Zeroverse and Objaverse dataset. LRM-Zero is trained on Zeroverse.</p></center>
 
               <p style="font-size: small; margin-top: 10px;">
                 (This webpage contains a lot of videos and interactive viewers. We suggest using Chrome or Edge for the best experience)
@@ -145,7 +182,7 @@
           <h2 class="title is-3">Abstract</h2>
           <div class="content has-text-justified">
             <p>
-              We present LRM-Zero, a Large Reconstruction Model (LRM) trained entirely on synthesized 3D data, achieving high-quality sparse-view 3D reconstruction. The core of LRM-Zero is our procedural 3D dataset, Zeroverse, which is automatically synthesized from simple primitive shapes with random texturing and augmentations (e.g., height fields, boolean differences, and wireframes). Unlike previous 3D datasets (e.g., Objaverse) which are often captured or crafted by humans to approximate real 3D data, Zeroverse completely ignores realistic global semantics but is rich in complex geometric and texture details that are locally similar to or even more intricate than real objects. We demonstrate that our LRM-Zero, trained with our fully synthesized Zeroverse, can achieve high visual quality in the reconstruction of real-world objects, competitive with models trained on Objaverse. We also analyze several critical design choices of Zeroverse that contribute to LRM-Zero's capability and training stability. Our work demonstrates that 3D reconstruction, one of the core tasks in 3D vision, can potentially be addressed without the semantics of real-world objects. We will release Zeroverse's procedural synthesis code to support future research.
+              We present LRM-Zero, a Large Reconstruction Model (LRM) trained entirely on synthesized 3D data, achieving high-quality sparse-view 3D reconstruction. The core of LRM-Zero is our procedural 3D dataset, Zeroverse, which is automatically synthesized from simple primitive shapes with random texturing and augmentations (e.g., height fields, boolean differences, and wireframes). Unlike previous 3D datasets (e.g., Objaverse) which are often captured or crafted by humans to approximate real 3D data, Zeroverse completely ignores realistic global semantics but is rich in complex geometric and texture details that are locally similar to or even more intricate than real objects. We demonstrate that our LRM-Zero, trained with our fully synthesized Zeroverse, can achieve high visual quality in the reconstruction of real-world objects, competitive with models trained on Objaverse. We also analyze several critical design choices of Zeroverse that contribute to LRM-Zero's capability and training stability. Our work demonstrates that 3D reconstruction, one of the core tasks in 3D vision, can potentially be addressed without the semantics of real-world objects.
 
 
               <br><br>
@@ -278,8 +315,224 @@
       </div>
 
     </div>
-  </section>  
+  </section>
 
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>LRM-Zero vs. GS-LRM Comparison</center>
+      </h2>
+      <div class="columns is-multiline is-mobile">
+        <div class="column is-half">
+          <h2 class="title is-4">
+            <center>LRM-Zero</center>
+          </h2>
+        </div>
+        <div class="column is-half">
+          <h2 class="title is-4">
+            <center>GS-LRM</center>
+          </h2>
+        </div>
+      </div>
+      <div class="hero-body">
+        <!-- Row 1-->
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/lrm_zero/abo_00000698/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/lrm_zero/abo_00000698/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/lrm_zero/abo_00000755/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/lrm_zero/abo_00000755/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/gs_lrm/abo_00000698/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/gs_lrm/abo_00000698/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/gs_lrm/abo_00000755/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/gs_lrm/abo_00000755/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+        <!-- Row 2-->
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/lrm_zero/gso_00000106/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/lrm_zero/gso_00000106/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/lrm_zero/gso_00000778/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/lrm_zero/gso_00000778/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/gs_lrm/gso_00000106/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/gs_lrm/gso_00000106/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/gs_lrm/gso_00000778/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/lrm_zero_vs_gs_lrm_website/gs_lrm/gso_00000778/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+        </div>
+
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">
+        <center>LRM-Zero Results on Text-to-3D and Image-to-3D</center>
+      </h2>
+      <div class="columns is-multiline is-mobile">
+        <div class="column is-half">
+          <h2 class="title is-4">
+            <center>Text-to-3D with <a href="https://jiahao.ai/instant3d/">Instant3D</a></center>
+          </h2>
+        </div>
+        <div class="column is-half">
+          <h2 class="title is-4">
+            <center>Image-to-3D with <a href="https://github.com/SUDO-AI-3D/zero123plus">Zero123++</a></center>
+          </h2>
+        </div>
+      </div>
+      <div class="hero-body">
+
+        <div class="columns is-1 is-multiline is-mobile">
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/instant3d_qualitative/00000056/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/instant3d_qualitative/00000056/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/instant3d_qualitative/00000102/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/instant3d_qualitative/00000102/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/zero123pp_qualitative/00000001/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/zero123pp_qualitative/00000001/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+          <div class="column pb-0 mb-0 is-one-fourth">
+            <video id="teaser" autoplay muted loop playsinline controls  height="100%">
+              <source
+                      src="https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/zero123pp_qualitative/00000015/turntable_with_input.mp4"
+                      type="video/mp4">
+            </video>
+            <div style="text-align: center;">
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/desaix/lrmzero_visualization/resolve/main/zero123pp_qualitative/00000015/gaussians.ply">Open
+                interactive viewer</a>
+            </div>
+          </div>
+
+
+
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <section class="hero teaser">
     <div class="container is-max-desktop">
@@ -295,13 +548,13 @@
           <div class="column pb-0 mb-0 is-one-third">
             <video id="teaser" autoplay muted loop playsinline controls  height="100%">
               <source
-                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000586_turntable_with_input.mp4"
-                type="video/mp4">
+                      src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000686_turntable_with_input.mp4"
+                      type="video/mp4">
             </video>
             <div style="text-align: center;">
-            <a
-              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000586_gaussians.ply">Open
-              interactive viewer</a>
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000686_gaussians.ply">Open
+                interactive viewer</a>
             </div>
           </div>
 
@@ -309,13 +562,13 @@
           <div class="column pb-0 mb-0 is-one-third">
             <video id="teaser" autoplay muted loop playsinline controls  height="100%">
               <source
-                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000106_turntable_with_input.mp4"
-                type="video/mp4">
+                      src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000103_turntable_with_input.mp4"
+                      type="video/mp4">
             </video>
             <div style="text-align: center;">
-            <a
-              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000106_gaussians.ply">Open
-              interactive viewer</a>
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000103_gaussians.ply">Open
+                interactive viewer</a>
             </div>
           </div>
 
@@ -323,13 +576,13 @@
           <div class="column pb-0 mb-0 is-one-third">
             <video id="teaser" autoplay muted loop playsinline controls  height="100%">
               <source
-                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000778_turntable_with_input.mp4"
-                type="video/mp4">
+                      src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000069_turntable_with_input.mp4"
+                      type="video/mp4">
             </video>
             <div style="text-align: center;">
-            <a
-              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000778_gaussians.ply">Open
-              interactive viewer</a>
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/00000069_gaussians.ply">Open
+                interactive viewer</a>
             </div>
           </div>
 
@@ -356,17 +609,17 @@
           <div class="column pb-0 mb-0 is-one-third">
             <video id="teaser" autoplay muted loop playsinline controls  height="100%">
               <source
-                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000698_turntable_with_input.mp4"
-                type="video/mp4">
+                      src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000722_turntable_with_input.mp4"
+                      type="video/mp4">
             </video>
             <div style="text-align: center;">
-            <a
-              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000698_gaussians.ply">Open
-              interactive viewer</a>
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000722_gaussians.ply">Open
+                interactive viewer</a>
             </div>
-          </div> 
+          </div>
 
-                    <div class="column pb-0 mb-0 is-one-third">
+          <div class="column pb-0 mb-0 is-one-third">
             <video id="teaser" autoplay muted loop playsinline controls  height="100%">
               <source
                 src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000656_turntable_with_input.mp4"
@@ -379,16 +632,16 @@
             </div>
           </div>
 
-                    <div class="column pb-0 mb-0 is-one-third">
+          <div class="column pb-0 mb-0 is-one-third">
             <video id="teaser" autoplay muted loop playsinline controls  height="100%">
               <source
-                src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000755_turntable_with_input.mp4"
-                type="video/mp4">
+                      src="https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000021_turntable_with_input.mp4"
+                      type="video/mp4">
             </video>
             <div style="text-align: center;">
-            <a
-              href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000755_gaussians.ply">Open
-              interactive viewer</a>
+              <a
+                      href="viewer/index.html?url=https://huggingface.co/datasets/lrmzero/zeroverse/resolve/main/abo_00000021_gaussians.ply">Open
+                interactive viewer</a>
             </div>
           </div>
 
@@ -396,6 +649,20 @@
 
         </div>
       </div>
+    </div>
+  </section>
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@misc{xie2024lrmzero,
+      title={LRM-Zero: Training Large Reconstruction Models with Synthesized Data},
+      author={Desai Xie and Sai Bi and Zhixin Shu and Kai Zhang and Zexiang Xu and Yi Zhou and Sören Pirk and Arie Kaufman and Xin Sun and Hao Tan},
+      year={2024},
+      eprint={2406.09371},
+      archivePrefix={arXiv},
+      primaryClass={id='cs.CV' full_name='Computer Vision and Pattern Recognition' is_active=True alt_name=None in_archive='cs' is_general=False description='Covers image processing, computer vision, pattern recognition, and scene understanding. Roughly includes material in ACM Subject Classes I.2.10, I.4, and I.5.'}
+}</code></pre>
+    </div>
   </section>
 
 
